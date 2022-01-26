@@ -160,7 +160,7 @@ class TorchHistObserver(TorchMinMaxObserver):
         # move histogram to cpu, speedup computation.
         histogram = histogram.to(computing_device).float()
 
-        # compute symmtrical kl-divergence.
+        # compute symmetrical kl-divergence.
         # Here is a simple example: reference distribution P consisting of 8 bins, we want to quantize into 2 bins:
         # P = [ 1, 0, 2, 3, 5, 3, 1, 7]
         # we merge into 2 bins (8 / 2 = 4 consecutive bins are merged into one bin)
@@ -175,7 +175,7 @@ class TorchHistObserver(TorchMinMaxObserver):
  
         losses, quant_bins = [], 2 ** (config.num_of_bits - 1)
 
-        # following code is curcial, do not move
+        # following code is crucial, do not move
         histogram[: int(hist_bins * .002)] = 0
         histogram[int(hist_bins * .002)] = 1
 
